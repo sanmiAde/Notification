@@ -1,9 +1,7 @@
 package com.sanmidev.notification
 
+import android.app.*
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
@@ -69,8 +67,10 @@ class Notification( private val context: Context) {
     }
 
     fun createPendingIntent(): PendingIntent {
-        val notificationIntent = Intent(context, MainActivity::class.java)
-        return PendingIntent.getActivity(context, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val notificationIntent = Intent(context, SecondActivity::class.java)
+
+        return TaskStackBuilder.create(context).addNextIntentWithParentStack(notificationIntent).getPendingIntent(
+            NOTIFICATION_ID, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     fun cancelNotification() {
